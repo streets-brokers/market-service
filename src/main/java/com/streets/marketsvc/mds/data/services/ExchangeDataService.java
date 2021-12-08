@@ -9,11 +9,12 @@ import java.util.List;
 public interface ExchangeDataService {
 
     // TODO: (romeo) pass in parameters so specify the time range to fetch
-    List<RawExchangeData> listMarketData();
+    Iterable<RawExchangeData> listMarketData();
+    Iterable<String> listTickers();
 
     RawExchangeData insert(RawExchangeData body);
 
-    List<RawExchangeData> getByTicker(String ticker);
+    Iterable<RawExchangeData> getByTicker(String ticker);
 
     void bulkInsert(List<RawExchangeData> responses, String xchange);
 }

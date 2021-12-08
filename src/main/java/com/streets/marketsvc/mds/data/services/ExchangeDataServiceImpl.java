@@ -1,8 +1,8 @@
 package com.streets.marketsvc.mds.data.services;
 
-import com.streets.marketsvc.utils.PropertiesReader;
 import com.streets.marketsvc.mds.data.models.RawExchangeData;
 import com.streets.marketsvc.mds.data.repositories.RawExchangeDataRepository;
+import com.streets.marketsvc.utils.PropertiesReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,13 @@ public class ExchangeDataServiceImpl implements ExchangeDataService {
     }
 
     @Override
-    public List<RawExchangeData> listMarketData() {
-        return null;
+    public Iterable<RawExchangeData> listMarketData() {
+        return this.repository.findAll();
+    }
+
+    @Override
+    public Iterable<String> listTickers() {
+        return this.repository.listProductTickers();
     }
 
     @Override
@@ -35,8 +40,8 @@ public class ExchangeDataServiceImpl implements ExchangeDataService {
     }
 
     @Override
-    public List<RawExchangeData> getByTicker(String ticker) {
-        return null;
+    public Iterable<RawExchangeData> getByTicker(String ticker) {
+        return this.repository.findByTicker(ticker);
     }
 
     @Override

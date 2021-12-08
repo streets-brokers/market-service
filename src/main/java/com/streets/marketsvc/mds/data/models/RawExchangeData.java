@@ -5,9 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 // The raw response body sent from the exchange service
 @Entity
+@Table(name = "raw_exchange_data")
 @Getter
 @Setter
 public class RawExchangeData {
@@ -42,6 +44,12 @@ public class RawExchangeData {
 
     @JsonAlias({"LAST_TRADED_PRICE", "lastTradedPrice"})
     private Double lastTradedPrice;
+
+    @PrePersist
+    public void prePersist() {
+        Date now = new Date();
+        timestamp = now.getTime();
+    }
 
     public RawExchangeData(Long id, String ticker, String xchange, Long timestamp, Integer sellLimit, Double maxPriceShift, Double askPrice, Double bidPrice, Integer buyLimit, Double lastTradedPrice) {
         this.id = id;
