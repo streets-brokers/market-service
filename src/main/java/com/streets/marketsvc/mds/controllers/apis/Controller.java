@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/marketservice")
+@RequestMapping("api/v1/marketservice")
 public class Controller {
     private static final Logger LOGGER = LoggerFactory.getLogger(Controller.class);
     // TODO: (romeo) Field injection is not recommended, prolly change for the service to be passed as a constructor
