@@ -1,6 +1,8 @@
 package com.streets.marketsvc;
 
 import com.streets.marketsvc.hooks.InitHook;
+import com.streets.marketsvc.hooks.SubscriptionHook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -8,13 +10,20 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class MarketsvcApplication {
 
+    private final InitHook initHook;
+
+    @Autowired
+    public MarketsvcApplication(InitHook initHook) {
+        this.initHook = initHook;
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(MarketsvcApplication.class, args);
     }
 
     @Bean(initMethod = "runHooks")
     public InitHook init() {
-        return new InitHook();
+        return initHook;
     }
 
 }

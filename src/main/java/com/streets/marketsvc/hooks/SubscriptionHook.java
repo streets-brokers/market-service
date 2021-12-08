@@ -6,17 +6,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 
+@Component
 public class SubscriptionHook {
     /**
      * Constant LOGGER.
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(SubscriptionHook.class);
 
-    public static void subscribe() {
+    public void subscribe() {
         String apiKey = PropertiesReader.getProperty("API_KEY");
         String baseURL = PropertiesReader.getProperty("EXCHANGE1_BASE_URL");
         String uri = baseURL + "/md/subscription";
