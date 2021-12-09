@@ -12,4 +12,7 @@ public interface RawExchangeDataRepository extends CrudRepository<RawExchangeDat
 
     @Query(value = "SELECT DISTINCT(ticker) FROM raw_exchange_data", nativeQuery = true)
     Iterable<String> listProductTickers();
+
+    @Query(value = "SELECT * FROM raw_exchange_data WHERE ticker =?1 AND xchange = ?2 AND timestamp >= ?3", nativeQuery = true)
+    Iterable<RawExchangeData> getRawExchangeDataByTimeRange(String product, String exchange, Long elapsedTime);
 }
