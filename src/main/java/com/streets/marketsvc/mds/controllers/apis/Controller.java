@@ -3,12 +3,14 @@ package com.streets.marketsvc.mds.controllers.apis;
 import com.streets.marketsvc.mds.data.models.RawExchangeData;
 import com.streets.marketsvc.mds.data.services.ExchangeDataService;
 import com.streets.marketsvc.mds.data.services.ExchangeDataServiceImpl;
+import com.streets.marketsvc.mds.trend.results.TrendResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/marketservice")
@@ -59,6 +61,12 @@ public class Controller {
     @ResponseBody
     public Iterable<RawExchangeData> getXchangeDataForProduct(@PathVariable String ticker) {
         return dataService.getByTicker(ticker);
+    }
+
+    @GetMapping("/trends/{ticker}")
+    @ResponseBody
+    public List<TrendResult> getTrend(@PathVariable String ticker) {
+        return dataService.getMarketAnalysisForProduct(ticker);
     }
 }
 

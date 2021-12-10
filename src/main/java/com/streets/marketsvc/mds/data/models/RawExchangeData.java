@@ -45,11 +45,6 @@ public class RawExchangeData {
     @JsonAlias({"LAST_TRADED_PRICE", "lastTradedPrice"})
     private Double lastTradedPrice;
 
-    @PrePersist
-    public void prePersist() {
-        Date now = new Date();
-        timestamp = now.getTime();
-    }
 
     public RawExchangeData(Long id, String ticker, String xchange, Long timestamp, Integer sellLimit, Double maxPriceShift, Double askPrice, Double bidPrice, Integer buyLimit, Double lastTradedPrice) {
         this.id = id;
