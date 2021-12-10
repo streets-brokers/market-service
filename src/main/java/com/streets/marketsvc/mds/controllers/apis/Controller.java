@@ -1,7 +1,6 @@
 package com.streets.marketsvc.mds.controllers.apis;
 
 import com.streets.marketsvc.mds.data.models.RawExchangeData;
-import com.streets.marketsvc.mds.data.services.ExchangeDataService;
 import com.streets.marketsvc.mds.data.services.ExchangeDataServiceImpl;
 import com.streets.marketsvc.mds.trend.results.TrendResult;
 import org.slf4j.Logger;
@@ -9,8 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @RestController
 @RequestMapping("api/v1/marketservice")
@@ -49,6 +52,20 @@ public class Controller {
     @ResponseBody
     public Iterable<RawExchangeData> getXchangeData() {
         return dataService.listMarketData();
+    }
+
+    @GetMapping("/products/buy")
+    @ResponseBody
+    public Iterable<RawExchangeData> getProductsSortedByBuy() {
+        List<RawExchangeData> allData = (List<RawExchangeData>) dataService.listMarketData();
+        Map<String, List<RawExchangeData>> productByType = allData.stream()
+                .collect(groupingBy(RawExchangeData::getTicker));
+
+        List<RawExchangeData> sortedData = new ArrayList<>();
+        productByType.values().forEach(dataList -> {
+            sortedData.add(dataList.stream().min(Comparator.comparing(RawExchangeData::getBidPrice)).orElse(null));
+        });
+        return  sortedData;
     }
 
     @GetMapping("/products/tickers")
