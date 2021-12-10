@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("api/v1/marketservice")
 public class Controller {
     private static final Logger LOGGER = LoggerFactory.getLogger(Controller.class);
