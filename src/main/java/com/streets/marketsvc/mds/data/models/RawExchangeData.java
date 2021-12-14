@@ -62,7 +62,6 @@ public class RawExchangeData {
     public RawExchangeData() {
     }
 
-
     @Override
     public String toString() {
         return "RawExchangeData{" +
