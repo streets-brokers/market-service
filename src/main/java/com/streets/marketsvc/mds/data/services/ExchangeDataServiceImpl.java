@@ -83,7 +83,7 @@ public class ExchangeDataServiceImpl implements ExchangeDataService {
         this.cleanAndSave(xchangeDataList, xchange);
     }
 
-    @Scheduled(initialDelay = 10, fixedDelay = 100)
+    @Scheduled(initialDelay = 10, fixedDelay = 1000)
     public void readXchangeState() {
         RestTemplate restTemplate = new RestTemplate();
         this.readXchangeOneState(restTemplate);
