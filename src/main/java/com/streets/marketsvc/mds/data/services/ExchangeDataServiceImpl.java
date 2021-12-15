@@ -10,6 +10,7 @@ import com.streets.marketsvc.utils.PropertiesReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -82,7 +83,7 @@ public class ExchangeDataServiceImpl implements ExchangeDataService {
         this.cleanAndSave(xchangeDataList, xchange);
     }
 
-    @PostConstruct
+    @Scheduled(initialDelay = 10, fixedDelay = 100)
     public void readXchangeState() {
         RestTemplate restTemplate = new RestTemplate();
         this.readXchangeOneState(restTemplate);
